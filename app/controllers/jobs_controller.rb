@@ -39,6 +39,7 @@ class JobsController < OpenReadController
   # DELETE /jobs/1
   def destroy
     @job.destroy
+    head :no_content
   end
 
   private
