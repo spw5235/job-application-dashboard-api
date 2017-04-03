@@ -51,6 +51,7 @@ class CompaniesController < OpenReadController
 
   # Only allow a trusted parameter "white list" through.
   def company_params
-    params.require(:company).permit(:name, :location, :url, :note)
+    params.require(:company).permit(:name, :location, :url, :note,
+                                    :action_required, :pending)
   end
 end
