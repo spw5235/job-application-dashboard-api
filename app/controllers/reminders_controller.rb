@@ -2,12 +2,12 @@
 
 class RemindersController < OpenReadController
   before_action :set_reminder, only: [:show, :update, :destroy]
-  before_action :set_company, only: [:index, :create]
 
   # GET /reminders
   def index
-    @reminders = @company.reminders
-    render json: { reminders: @reminders }
+    @reminders = current_user.reminders
+
+    render json: @reminders
   end
 
   # GET /reminders/1
@@ -18,7 +18,6 @@ class RemindersController < OpenReadController
   # POST /reminders
   def create
     @reminder = current_user.reminders.build(reminder_params)
-    @reminder.company = @company
 
     if @reminder.save
       render json: @reminder, status: :created
@@ -43,19 +42,19 @@ class RemindersController < OpenReadController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reminder
-      @reminder = Reminder.where(id: params[:id], user: current_user).take
-    end
 
-    def set_company
-      @company = current_user.companies.find(params[:company_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_reminder
+    # @student = Student.find(params[:id])
+    @reminder = Reminder.where(id: params[:id], user: current_user).take
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def reminder_params
-      params.require(:reminder).permit(:reminder_type, :reminder_subject,
-                                       :reminder_details, :reminder_date,
-                                       :reminder_archive, :reminder_compl_date)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def reminder_params
+    params.require(:reminder).permit(:reminder_type, :reminder_subject,
+                                     :reminder_details, :reminder_date,
+                                     :reminder_archive, :reminder_compl_date,
+                                     :company_ref_id, :job_ref_id,
+                                     :company_name, :job_title)
+  end
 end

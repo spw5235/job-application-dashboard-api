@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/companies/32/reminders"
+URL_PATH="/reminders"
 curl "${API}${URL_PATH}" \
   --include \
   --request GET \

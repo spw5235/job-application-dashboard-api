@@ -11,7 +11,5 @@ Rails.application.routes.draw do
   patch '/change-password/:id' => 'users#changepw'
   get '/companies/:company_id/jobs' => 'jobs#index'
   post '/companies/:company_id/jobs' => 'jobs#create'
-  get '/companies/:company_id/reminders' => 'reminders#index'
-  post '/companies/:company_id/reminders' => 'reminders#create'
   resources :users, only: [:index, :show]
 end

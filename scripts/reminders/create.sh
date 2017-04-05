@@ -1,6 +1,6 @@
 
   API="${API_ORIGIN:-http://localhost:4741}"
-  URL_PATH="/companies/32/reminders"
+  URL_PATH="/reminders"
   curl "${API}${URL_PATH}" \
     --include \
     --request POST \
@@ -13,7 +13,9 @@
         "reminder_details": "details",
         "reminder_date": "2016-01-01",
         "reminder_archive": "false",
-        "reminder_compl_date": "2017-01-01"
+        "reminder_compl_date": "2017-01-01",
+        "company_ref_id": "2",
+        "job_ref_id": "3"
       }
     }'
 
