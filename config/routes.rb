@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :statuses, except: [:new, :edit]
+  resources :reminders, except: [:new, :edit]
   resources :jobs, except: [:new, :edit]
   resources :companies, except: [:new, :edit]
   resources :examples, except: [:new, :edit]
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   patch '/change-password/:id' => 'users#changepw'
   get '/companies/:company_id/jobs' => 'jobs#index'
   post '/companies/:company_id/jobs' => 'jobs#create'
-  get '/companies/:company_id/jobs/:job_id/statuses' => 'statuses#index'
-  post '/companies/:company_id/jobs/:job_id/statuses' => 'statuses#create'
+  get '/companies/:company_id/reminders' => 'reminders#index'
+  post '/companies/:company_id/reminders' => 'reminders#create'
   resources :users, only: [:index, :show]
 end

@@ -1,19 +1,19 @@
 
   API="${API_ORIGIN:-http://localhost:4741}"
-  URL_PATH="/companies/32/jobs"
+  URL_PATH="/companies/32/reminders"
   curl "${API}${URL_PATH}" \
     --include \
     --request POST \
     --header "Content-Type: application/json" \
     --header "Authorization: Token token=${TOKEN}" \
     --data '{
-      "job": {
-        "title": "job title",
-        "posting_date": "2016-01-01",
-        "post_url": "www.monster.com",
-        "salary": "20,000",
-        "requirement": "none",
-        "deadline": ""
+      "reminder": {
+        "reminder_type": "pending",
+        "reminder_subject": "Call Person",
+        "reminder_details": "details",
+        "reminder_date": "2016-01-01",
+        "reminder_archive": "false",
+        "reminder_compl_date": "2017-01-01"
       }
     }'
 

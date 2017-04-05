@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/statuses/${ID}"
+URL_PATH="/reminders/2"
 curl "${API}${URL_PATH}" \
   --include \
   --request DELETE \
