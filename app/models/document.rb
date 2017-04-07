@@ -2,5 +2,5 @@
 
 class Document < ApplicationRecord
   belongs_to :user
-  validates_presence_of :doctype
+  validates_presence_of :doctype, :docsubject
 end
