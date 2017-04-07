@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405153621) do
+ActiveRecord::Schema.define(version: 20170407111137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,20 @@ ActiveRecord::Schema.define(version: 20170405153621) do
     t.boolean  "action_required", default: false
     t.boolean  "pending",         default: false
     t.index ["user_id"], name: "index_companies_on_user_id", using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string   "doctype"
+    t.string   "doctext"
+    t.string   "docurl"
+    t.integer  "company_ref_id"
+    t.string   "company_name"
+    t.integer  "contact_ref_id"
+    t.string   "contact_ref_name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
   end
 
   create_table "examples", force: :cascade do |t|
@@ -72,23 +86,6 @@ ActiveRecord::Schema.define(version: 20170405153621) do
     t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
   end
 
-  create_table "statuses", force: :cascade do |t|
-    t.string   "status_type"
-    t.string   "subject"
-    t.string   "details"
-    t.date     "due_date"
-    t.boolean  "archive"
-    t.date     "date_completed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "user_id"
-    t.integer  "company_id"
-    t.integer  "job_id"
-    t.index ["company_id"], name: "index_statuses_on_company_id", using: :btree
-    t.index ["job_id"], name: "index_statuses_on_job_id", using: :btree
-    t.index ["user_id"], name: "index_statuses_on_user_id", using: :btree
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "token",           null: false
@@ -100,11 +97,9 @@ ActiveRecord::Schema.define(version: 20170405153621) do
   end
 
   add_foreign_key "companies", "users"
+  add_foreign_key "documents", "users"
   add_foreign_key "examples", "users"
   add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "users"
   add_foreign_key "reminders", "users"
-  add_foreign_key "statuses", "companies"
-  add_foreign_key "statuses", "jobs"
-  add_foreign_key "statuses", "users"
 end

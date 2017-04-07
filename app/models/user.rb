@@ -5,4 +5,5 @@ class User < ApplicationRecord
   has_many :companies
   has_many :jobs
   has_many :reminders
+  has_many :documents
 end
