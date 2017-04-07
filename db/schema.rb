@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407141838) do
+ActiveRecord::Schema.define(version: 20170407160306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,27 @@ ActiveRecord::Schema.define(version: 20170407141838) do
     t.boolean  "action_required", default: false
     t.boolean  "pending",         default: false
     t.index ["user_id"], name: "index_companies_on_user_id", using: :btree
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "full_name"
+    t.string   "nickname"
+    t.string   "company_name"
+    t.string   "job_title"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "website"
+    t.string   "notes"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "company_ref_id"
+    t.integer  "job_ref_id"
+    t.integer  "reminder_ref_id"
+    t.integer  "document_ref_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id", using: :btree
   end
 
   create_table "documents", force: :cascade do |t|
@@ -82,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170407141838) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "user_id"
+    t.integer  "company_id"
     t.integer  "company_ref_id"
     t.integer  "job_ref_id"
     t.string   "company_name"
@@ -100,9 +122,11 @@ ActiveRecord::Schema.define(version: 20170407141838) do
   end
 
   add_foreign_key "companies", "users"
+  add_foreign_key "contacts", "users"
   add_foreign_key "documents", "users"
   add_foreign_key "examples", "users"
   add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "users"
+  add_foreign_key "reminders", "companies"
   add_foreign_key "reminders", "users"
 end
