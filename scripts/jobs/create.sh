@@ -1,6 +1,6 @@
 
   API="${API_ORIGIN:-http://localhost:4741}"
-  URL_PATH="/companies/32/jobs"
+  URL_PATH="/jobs"
   curl "${API}${URL_PATH}" \
     --include \
     --request POST \
@@ -13,7 +13,8 @@
         "post_url": "www.monster.com",
         "salary": "20,000",
         "requirement": "none",
-        "deadline": ""
+        "deadline": "",
+        "comment": "none"
       }
     }'
 
