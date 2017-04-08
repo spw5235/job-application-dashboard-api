@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407231839) do
+ActiveRecord::Schema.define(version: 20170408160234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "communications", force: :cascade do |t|
+    t.date     "c_date"
+    t.string   "c_method"
+    t.string   "c_subject"
+    t.string   "c_details"
+    t.string   "c_link"
+    t.string   "c_notes"
+    t.integer  "user_id"
+    t.integer  "contact_ref_id"
+    t.string   "contact_ref_name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["user_id"], name: "index_communications_on_user_id", using: :btree
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -122,6 +137,7 @@ ActiveRecord::Schema.define(version: 20170407231839) do
     t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
+  add_foreign_key "communications", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "contacts", "users"
   add_foreign_key "documents", "users"

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :communications, except: [:new, :edit]
   resources :contacts, except: [:new, :edit]
   resources :documents, except: [:new, :edit]
   resources :reminders, except: [:new, :edit]
