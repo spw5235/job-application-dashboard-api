@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407160306) do
+ActiveRecord::Schema.define(version: 20170407231839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,11 +103,12 @@ ActiveRecord::Schema.define(version: 20170407160306) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "user_id"
-    t.integer  "company_id"
     t.integer  "company_ref_id"
     t.integer  "job_ref_id"
     t.string   "company_name"
     t.string   "job_title"
+    t.integer  "contact_ref_id"
+    t.string   "contact_name"
     t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
   end
 
@@ -127,6 +128,5 @@ ActiveRecord::Schema.define(version: 20170407160306) do
   add_foreign_key "examples", "users"
   add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "users"
-  add_foreign_key "reminders", "companies"
   add_foreign_key "reminders", "users"
 end

@@ -55,6 +55,7 @@ class RemindersController < OpenReadController
                                      :reminder_details, :reminder_date,
                                      :reminder_archive, :reminder_compl_date,
                                      :company_ref_id, :job_ref_id,
-                                     :company_name, :job_title)
+                                     :company_name, :job_title, :contact_ref_id,
+                                     :contact_name)
   end
 end
