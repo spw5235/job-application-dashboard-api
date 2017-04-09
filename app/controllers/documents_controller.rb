@@ -51,6 +51,6 @@ class DocumentsController < OpenReadController
 
   # Only allow a trusted parameter "white list" through.
   def document_params
-    params.require(:document).permit(:doctype, :docsubject, :doctext, :docurl, :company_ref_id, :company_name, :contact_ref_id, :contact_ref_name, :docdate, :job_ref_id)
+    params.require(:document).permit(:doctype, :docsubject, :doctext, :docurl, :company_ref_id, :company_name, :contact_ref_id, :contact_ref_name, :docdate, :job_ref_id, :doctypeother, :doctypeshow)
   end
 end
