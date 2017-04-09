@@ -8,6 +8,7 @@
     --header "Authorization: Token token=${TOKEN}" \
     --data '{
       "job": {
+        "company_name": "this name",
         "title": "job title",
         "posting_date": "2016-01-01",
         "post_url": "www.monster.com",

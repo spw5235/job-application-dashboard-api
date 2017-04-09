@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409112619) do
+ActiveRecord::Schema.define(version: 20170409192959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,19 +28,6 @@ ActiveRecord::Schema.define(version: 20170409112619) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["user_id"], name: "index_communications_on_user_id", using: :btree
-  end
-
-  create_table "companies", force: :cascade do |t|
-    t.string   "name"
-    t.string   "location"
-    t.string   "url"
-    t.string   "note"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "user_id"
-    t.boolean  "action_required"
-    t.boolean  "pending",         default: false
-    t.index ["user_id"], name: "index_companies_on_user_id", using: :btree
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -97,13 +84,10 @@ ActiveRecord::Schema.define(version: 20170409112619) do
     t.string   "responsibility"
     t.string   "requirement"
     t.date     "deadline"
-    t.boolean  "action_required", default: false
-    t.boolean  "pending",         default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "user_id"
-    t.string   "comment"
-    t.integer  "company_ref_id"
+    t.string   "note"
     t.string   "company_name"
     t.index ["user_id"], name: "index_jobs_on_user_id", using: :btree
   end
@@ -124,24 +108,8 @@ ActiveRecord::Schema.define(version: 20170409112619) do
     t.string   "job_title"
     t.integer  "contact_ref_id"
     t.string   "contact_name"
+    t.string   "job_name"
     t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
-  end
-
-  create_table "statuses", force: :cascade do |t|
-    t.string   "status_type"
-    t.string   "subject"
-    t.string   "details"
-    t.date     "due_date"
-    t.boolean  "archive"
-    t.date     "date_completed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "user_id"
-    t.integer  "company_id"
-    t.integer  "job_id"
-    t.index ["company_id"], name: "index_statuses_on_company_id", using: :btree
-    t.index ["job_id"], name: "index_statuses_on_job_id", using: :btree
-    t.index ["user_id"], name: "index_statuses_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -155,13 +123,9 @@ ActiveRecord::Schema.define(version: 20170409112619) do
   end
 
   add_foreign_key "communications", "users"
-  add_foreign_key "companies", "users"
   add_foreign_key "contacts", "users"
   add_foreign_key "documents", "users"
   add_foreign_key "examples", "users"
   add_foreign_key "jobs", "users"
   add_foreign_key "reminders", "users"
-  add_foreign_key "statuses", "companies"
-  add_foreign_key "statuses", "jobs"
-  add_foreign_key "statuses", "users"
 end
