@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409231919) do
+ActiveRecord::Schema.define(version: 20170411042600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,13 @@ ActiveRecord::Schema.define(version: 20170409231919) do
     t.string   "c_notes"
     t.integer  "user_id"
     t.integer  "contact_ref_id"
-    t.string   "contact_ref_name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "contact_ref_text"
+    t.integer  "job_ref_id"
+    t.string   "job_ref_text"
+    t.integer  "document_ref_id"
+    t.string   "document_ref_text"
     t.index ["user_id"], name: "index_communications_on_user_id", using: :btree
   end
 
@@ -44,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170409231919) do
     t.string   "notes"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "company_ref_id"
     t.integer  "job_ref_id"
     t.integer  "reminder_ref_id"
     t.integer  "document_ref_id"
@@ -56,7 +59,6 @@ ActiveRecord::Schema.define(version: 20170409231919) do
     t.string   "doctext"
     t.string   "docurl"
     t.integer  "company_ref_id"
-    t.string   "company_name"
     t.integer  "contact_ref_id"
     t.string   "contact_ref_name"
     t.datetime "created_at",       null: false
@@ -104,11 +106,7 @@ ActiveRecord::Schema.define(version: 20170409231919) do
     t.integer  "user_id"
     t.integer  "company_ref_id"
     t.integer  "job_ref_id"
-    t.string   "company_name"
-    t.string   "job_title"
     t.integer  "contact_ref_id"
-    t.string   "contact_name"
-    t.string   "job_name"
     t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
   end
 
