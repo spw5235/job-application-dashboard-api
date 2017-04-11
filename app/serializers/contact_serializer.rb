@@ -2,7 +2,7 @@
 
 class ContactSerializer < ActiveModel::Serializer
   attributes :id, :first_name, :last_name, :full_name, :nickname, :job_title,
-             :email, :phone, :website, :notes, :company_name, :job_ref_id,
+             :email, :phone, :website, :notes, :job_ref_id,
              :job_ref_text, :editable
 
   def editable

@@ -52,7 +52,7 @@ class ContactsController < OpenReadController
   def contact_params
     params.require(:contact).permit(:first_name, :last_name, :full_name,
                                     :nickname, :job_title, :email, :phone,
-                                    :website, :notes, :company_name,
+                                    :website, :notes,
                                     :job_ref_id, :job_ref_text)
   end
 end
