@@ -51,6 +51,6 @@ class CommunicationsController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def communication_params
-      params.require(:communication).permit(:c_date, :c_method, :c_subject, :c_details, :c_link, :c_notes, :user_id, :contact_ref_id, :contact_ref_name)
+      params.require(:communication).permit(:c_date, :c_method, :c_subject, :c_details, :c_link, :c_notes, :contact_ref_id, :contact_ref_text, :job_ref_id, :job_ref_text, :document_ref_id, :document_ref_text)
     end
 end

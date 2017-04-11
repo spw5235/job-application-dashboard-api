@@ -1,7 +1,6 @@
 class DocumentSerializer < ActiveModel::Serializer
-  attributes :id, :doctype, :doctext, :docsubject, :docurl, :company_ref_id,
-             :company_name, :contact_ref_id, :contact_ref_name, :docdate,
-             :docsubject, :job_ref_id, :contact_ref_id, :editable
+  attributes :id, :doctype, :docsubject, :doctext, :docurl,
+             :docdate, :job_ref_id, :job_ref_text, :editable
 
   def editable
     scope == object.user
