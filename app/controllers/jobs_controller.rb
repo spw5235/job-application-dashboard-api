@@ -2,6 +2,7 @@
 
 class JobsController < OpenReadController
   before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_contact, only: [:destroy]
 
   # GET /jobs
   def index
@@ -37,7 +38,15 @@ class JobsController < OpenReadController
 
   # DELETE /jobs/1
   def destroy
+
+    @job_id = @job.id
+    @related_contacts = Contact.where(job_ref_id: @job_id)
+    @related_contacts_arr = @related_contacts.pluck(:id)
+    binding.pry
     @job.destroy
+    @remove_contact = Contact.where(:id => @related_contacts_arr)
+
+    @remove_contact.delete_all
     head :no_content
   end
 
@@ -47,6 +56,11 @@ class JobsController < OpenReadController
   def set_job
     # @student = Student.find(params[:id])
     @job = Job.where(id: params[:id], user: current_user).take
+  end
+
+  def set_contact
+    # @student = Student.find(params[:id])
+    @contact = Contact.where(id: params[:id], user: current_user).take
   end
 
   # Only allow a trusted parameter "white list" through.
