@@ -2,5 +2,5 @@
 
 class Job < ApplicationRecord
   belongs_to :user
-  validates :title, presence: true
+  validates :title, :company_name, presence: true
 end
