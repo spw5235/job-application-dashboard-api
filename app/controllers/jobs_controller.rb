@@ -40,13 +40,24 @@ class JobsController < OpenReadController
   def destroy
 
     @job_id = @job.id
+    # Contacts
     @related_contacts = Contact.where(job_ref_id: @job_id)
     @related_contacts_arr = @related_contacts.pluck(:id)
-    binding.pry
+    @remove_contact = Contact.where(:id => @related_contacts_arr).delete_all
+    # Reminders
+    @related_reminders = Reminder.where(job_ref_id: @job_id)
+    @related_reminders_arr = @related_reminders.pluck(:id)
+    @remove_reminder = Reminder.where(:id => @related_reminders_arr).delete_all
+    # Documents
+    @related_documents = Document.where(job_ref_id: @job_id)
+    @related_documents_arr = @related_documents.pluck(:id)
+    @remove_document = Document.where(:id => @related_documents_arr).delete_all
+    # Communications
+    @related_communications = Communication.where(job_ref_id: @job_id)
+    @related_communications_arr = @related_communications.pluck(:id)
+    @remove_communication = Communication.where(:id => @related_communications_arr).delete_all
+    # Delete Job
     @job.destroy
-    @remove_contact = Contact.where(:id => @related_contacts_arr)
-
-    @remove_contact.delete_all
     head :no_content
   end
 
