@@ -2,7 +2,7 @@
 
 class JobSerializer < ActiveModel::Serializer
   attributes :id, :title, :posting_date, :post_url, :salary,
-             :responsibility, :requirement, :deadline,
+             :responsibility, :requirement, :deadline, :job_description,
              :note, :company_name, :editable
 
   def editable

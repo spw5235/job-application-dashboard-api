@@ -77,7 +77,7 @@ class JobsController < OpenReadController
   # Only allow a trusted parameter "white list" through.
   def job_params
     params.require(:job).permit(:title, :posting_date, :post_url, :salary,
-                                :responsibility, :requirement, :deadline,
-                                :note, :company_name)
+                                :job_description, :responsibility,
+                                :requirement, :deadline, :note, :company_name)
   end
 end
