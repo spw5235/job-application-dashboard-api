@@ -78,6 +78,7 @@ class JobsController < OpenReadController
   def job_params
     params.require(:job).permit(:title, :posting_date, :post_url, :salary,
                                 :job_description, :responsibility,
-                                :requirement, :deadline, :note, :company_name)
+                                :requirement, :deadline, :note, :company_name,
+                                :applied, :date_applied)
   end
 end
