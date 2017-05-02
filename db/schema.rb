@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502022702) do
+ActiveRecord::Schema.define(version: 20170502194500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170502022702) do
     t.date     "date_applied"
     t.boolean  "applied"
     t.boolean  "default_reminder", default: true
+    t.integer  "priority_num",     default: 1
     t.index ["user_id"], name: "index_jobs_on_user_id", using: :btree
   end
 
