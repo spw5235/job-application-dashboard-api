@@ -2,6 +2,38 @@
 
 An API to store records relating to the job application process.
 
+It allows users to CRUD on jobs, communications, contacters, documents, and reminders.
+
+Link to the live application: [https://spwisner.github.io/job-application-dashboard/](https://spwisner.github.io/job-application-dashboard/).
+
+Link to the front end repository: [https://github.com/spwisner/job-application-dashboard](https://github.com/spwisner/job-application-dashboard).
+
+Link to the heroku api: [https://job-app-dashboard.herokuapp.com/](https://job-app-dashboard.herokuapp.com/).
+
+## ERD
+
+The relationship of this api is one to many.  That is, a user can have many jobs, many communications, many documents, many reminders, and many contacts.  By giving each table the fields "job_ref_id" and "job_ref_text", the company_name and id of the job posting can be stored all other tables.  For a visualization of this relationship, view the following:
+
+![alt text](https://cloud.githubusercontent.com/assets/13546265/25693740/fb840778-3078-11e7-92e9-649e89fe5286.png "ERD")
+
+## Dependencies
+
+No additional dependencies were used for the api portion of this project.
+
+## Technologies Used
+
+-   Ruby on Rails
+-   Ruby
+
+The database was structured and scaffolded using Ruby on Rails.  Ruby was used in the jobs controller to allow all records associated with a job application (i.e. reminders, contacts, communications, and documents) to be removed when the job is deleted.
+
+## General approach
+
+In order to make the communications, contacts, documents, reminders, and jobs tables independent from each other, a relationships of one to many was established from the user to all other tables.  By including the table columns job_ref_id and job_ref_text in the communications, contacts, documents, and reminders table, a reference to a specific job application can be made.  In all instances, job_ref_id in a table references the id of a record in the jobs table and the job_ref_text references the company name of a record in the jobs table.  This allows users to be flexible in assigning a record to a specific job application.  For instance, if a user creates a general reminder that should not be linked to a specific job application, this is possible because of the independence between tables.
+
+## Limitations
+One of the limitations of this api is related to user experience.  Because of the goal of establishing independence for all relationships between tables, a user must always remember to associate a record to a specific job application.  In addition, once a company name is created, it cannot be modified.  Doing so would not register in all other independent tables.  Consequently, this option must not be available on the front end portion of the application.  Future emphasis should be placed on addressing how changing a company name would be registered among all other tables.
+
 ## API end-points
 
 | Verb   | URI Pattern            | Controller#Action           |
@@ -415,4 +447,20 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
  If the request is unsuccessful, the response will have a status of 401 Unauthorized.
 
+ ---
+
 ## Communication Actions
+
+This portion is currently under development.
+
+## Contact Actions
+
+This portion is currently under development.
+
+## Document Actions
+
+This portion is currently under development.
+
+## Reminder Actions
+
+This portion is currently under development.
