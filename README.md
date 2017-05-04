@@ -2,7 +2,7 @@
 
 An API to store records relating to the job application process.
 
-It allows users to CRUD on jobs, communications, contacters, documents, and reminders.
+It allows users to CRUD on jobs, communications, contacts, documents, and reminders.
 
 Link to the live application: [https://spwisner.github.io/job-application-dashboard/](https://spwisner.github.io/job-application-dashboard/).
 
@@ -850,7 +850,186 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
 ## Document Actions
 
-This portion is currently under development.
+All documents action requests must include a valid HTTP header `Authorization: Token token=<token>` or they will be rejected with a status of 401 Unauthorized.
+
+### index
+
+The `index` action is a *GET* that retrieves all the documents associated with a user. The response body will contain JSON containing an array of documents, e.g.:
+
+```json
+
+{
+  "documents":[
+    {
+      "id":38,
+      "doctype":"Application Questions",
+      "docsubject":"Responses to New Company App Questions",
+      "doctext":"Question 1 Response: Question 1 response here\n\nQuestion 2 Response: Question 2 response here\n\nQuestion 3 Response: Question 3 response here",
+      "docurl":"",
+      "docdate":"2017-05-04",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    },
+    {
+      "id":37,
+      "doctype":"Cover Letter",
+      "docsubject":"Cover Letter to Sample Company",
+      "doctext":"Sample Cover Inserted Here",
+      "docurl":"http://www.google.com/drive/coverletter",
+      "docdate":"2017-05-01",
+      "job_ref_id":57,
+      "job_ref_text":"Sample"
+    }
+  ]
+}
+
+```
+
+If there are no documents associated with the user, the response body will contain an empty documents array, e.g.:
+
+```json
+{
+  "documents": [
+  ]
+}
+```
+
+### create
+
+The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below.  Please note that Document Type (doc_type) and Document Subject(docsubject) are required fields.
+
+```html
+<form id="new-document-form">
+  <fieldset>
+    <div>
+      <label>Document Date</label>
+      <input name="document[docdate]" placeholder="Document Date" type="date">
+    </div>
+
+    <div>
+      <label>Document Type (required)</label>
+      <select>
+          <option name="document[doctype]" placeholder="Document Type" type="text" value="Resume">Resume</option>
+          <option name="document[doctype]" placeholder="Document Type" type="text" value="Cover Letter">Cover Letter</option>
+          <option name="document[doctype]" placeholder="Document Type" type="text" value="Application Questions">Application Questions</option>
+          <option name="document[doctype]" placeholder="Document Type" type="text" value="Other">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Document Subject (required)</label>
+      <input name="document[docsubject]" placeholder="Document Subject" type="text">
+    </div>
+
+    <div>
+      <label>Document Url</label>
+      <input name="document[docurl]" placeholder="www.gmail.com/..." type="text">
+    </div>
+
+    <div>
+      <label>Document Text</label>
+      <textarea name="document[doctext]" placeholder="Document Text"></textarea>
+    </div>
+
+    <div>
+      <input name="submit" type="submit" value="Submit">
+    </div>
+  </fieldset>
+</form>
+
+```
+If the request is successful, the response will have an HTTP Status of 201 Created, and the body will contain JSON of the created document, e.g.:
+
+```json
+
+{
+  "documents":
+    {
+      "id":18,
+      "first_name":"Peter",
+      "last_name":"Matthews",
+      "full_name":"Peter Matthews",
+      "nickname":"Pete",
+      "job_title":"Web Developing Director",
+      "email":"pete@webdeveloperscompany.com",
+      "phone":"",
+      "website":"",
+      "notes":"",
+      "job_ref_id":58,
+      "job_ref_text":"Web Developers Company"
+    }
+  }
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+### show
+
+The `show` action is a *GET* specifing the `id` of the document to retrieve. If the request is successful the status will be 200, OK, and the response body will contain JSON for the document requested, e.g.:
+
+```json
+{
+  "document":
+  {
+    "id":38,
+    "doctype":"Application Questions",
+    "docsubject":"Responses to New Company App Questions",
+    "doctext":"Question 1 Response: Question 1 response here\n\nQuestion 2 Response: Question 2 response here\n\nQuestion 3 Response: Question 3 response here",
+    "docurl":"",
+    "docdate":"2017-05-04",
+    "job_ref_id":60,
+    "job_ref_text":"New Company"
+  }
+}
+
+```
+
+### update
+
+This `update` action expects a *PATCH* with changes to to an existing job,
+ e.g.:
+
+```json
+{
+  "document":
+  {
+    "doctext":"Question 1 Response: Question 1 response here\n\nQuestion 2 Response: Question 2 response here\n\nQuestion 3 Response: Question 3 response here\n\n Additional Question 1\n\n Response: Additional Question response here\n\nAdditional Question 2\n\nResponse: Additional Question response here"
+  }
+}
+
+```
+
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+
+```json
+{
+  "document":
+  {
+    "id":38,
+    "doctype":"Application Questions",
+    "docsubject":"Responses to New Company App Questions",
+    "doctext":"Question 1 Response: Question 1 response here\n\nQuestion 2 Response: Question 2 response here\n\nQuestion 3 Response: Question 3 response here\n\n Additional Question 1\n\n Response: Additional Question response here\n\nAdditional Question 2\n\nResponse: Additional Question response here",
+    "docurl":"",
+    "docdate":"2017-05-04",
+    "job_ref_id":60,
+    "job_ref_text":"New Company"
+  }
+}
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+ ### destroy
+
+ This `destroy` action expects a *DELETE* specifying the `id` of the document to delete.
+
+ If the request is successful the response will have an HTTP status of 204 No Content.
+
+ If the request is unsuccessful, the response will have a status of 401 Unauthorized.
+
+ ---
 
 ## Reminder Actions
 
