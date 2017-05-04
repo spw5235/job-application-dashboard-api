@@ -1033,4 +1033,168 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
 ## Reminder Actions
 
-This portion is currently under development.
+All reminders action requests must include a valid HTTP header `Authorization: Token token=<token>` or they will be rejected with a status of 401 Unauthorized.
+
+### index
+
+The `index` action is a *GET* that retrieves all the reminders associated with a user. The response body will contain JSON containing an array of reminders, e.g.:
+
+```json
+
+{
+  "reminders":[
+    {
+      "id":44,
+      "reminder_type":"Action",
+      "reminder_subject":"New Company Reminder",
+      "reminder_details":"Call back Jon at New Company",
+      "reminder_date":"2017-05-04",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    },
+    {
+      "id":31,
+      "reminder_type":"Pending",
+      "reminder_subject":"Sample Reminder",
+      "reminder_details":"Monitor for response from Sample Company",
+      "reminder_date":"2017-05-04",
+      "job_ref_id":57,
+      "job_ref_text":"Sample"
+    }
+  ]
+}
+
+```
+
+If there are no reminders associated with the user, the response body will contain an empty reminders array, e.g.:
+
+```json
+{
+  "reminders": [
+  ]
+}
+```
+
+### create
+
+The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below.  Please note that Reminder Type (reminder_type) and Reminder Subject(reminder_subject) are required fields.
+
+```html
+<form id="new-reminder-form" name="new-reminder-form">
+  <fieldset>
+    <div>
+      <label>Reminder Notification Date</label>
+      <input name="reminder[reminder_date]" placeholder="Date" type="date">
+    </div>
+
+    <div>
+      <label>Reminder Type (required)</label>
+      <select>
+          <option name="reminder[reminder_type]" placeholder="reminder Type" type="text" value="Action">Action</option>
+          <option name="reminder[reminder_type]" placeholder="reminder Type" type="text" value="Pending">Pending</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Reminder Subject (required)</label>
+      <input name="reminder[reminder_subject]" placeholder="Subject" type="text">
+    </div>
+
+    <div>
+      <label>Reminder Details</label>
+      <textarea name="reminder[reminder_details]" type="text" placeholder="Reminder Details"></textarea>
+    </div>
+
+    <div>
+      <input name="submit" type="submit" value="Submit">
+    </div>
+  </fieldset>
+</form>
+
+```
+If the request is successful, the response will have an HTTP Status of 201 Created, and the body will contain JSON of the created reminder, e.g.:
+
+```json
+
+{
+  "reminder":
+    {
+      "id":44,
+      "reminder_type":"Action",
+      "reminder_subject":"New Company Reminder",
+      "reminder_details":"Call back Jon at New Company",
+      "reminder_date":"2017-05-04",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    }
+}
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+### show
+
+The `show` action is a *GET* specifing the `id` of the reminder to retrieve. If the request is successful the status will be 200, OK, and the response body will contain JSON for the reminder requested, e.g.:
+
+```json
+{
+  "reminder":
+    {
+      "id":44,
+      "reminder_type":"Action",
+      "reminder_subject":"New Company Reminder",
+      "reminder_details":"Call back Jon at New Company",
+      "reminder_date":"2017-05-04",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    }
+}
+
+```
+
+### update
+
+This `update` action expects a *PATCH* with changes to to an existing job,
+ e.g.:
+
+```json
+{
+  "reminder":
+    {
+      "reminder_subject":"New Company Reminder - Call",
+      "reminder_details":"Call Jon at New Company to see if he received resume"
+    }
+}
+
+```
+
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified reminder, e.g.:
+
+```json
+{
+  "reminder":
+    {
+      "id":44,
+      "reminder_type":"Action",
+      "reminder_subject":"New Company Reminder - Call",
+      "reminder_details":"Call Jon at New Company to see if he received resume",
+      "reminder_date":"2017-05-04",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    }
+}
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+ ### destroy
+
+ This `destroy` action expects a *DELETE* specifying the `id` of the reminder to delete.
+
+ If the request is successful the response will have an HTTP status of 204 No Content.
+
+ If the request is unsuccessful, the response will have a status of 401 Unauthorized.
+
+ ---
