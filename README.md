@@ -191,7 +191,7 @@ All jobs action requests must include a valid HTTP header `Authorization: Token 
 
 ### index
 
-The `index` action is a *GET* that retrieves all the jos associated with a
+The `index` action is a *GET* that retrieves all the jobs associated with a
  user. The response body will contain JSON containing an array of jobs, e.g.:
 
 ```json
@@ -451,7 +451,190 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
 ## Communication Actions
 
-This portion is currently under development.
+All communications action requests must include a valid HTTP header `Authorization: Token token=<token>` or they will be rejected with a status of 401 Unauthorized.
+
+### index
+
+The `index` action is a *GET* that retrieves all the communications associated with a user. The response body will contain JSON containing an array of communications, e.g.:
+
+```json
+
+{
+  "communications":[
+    {
+      "id":16,
+      "c_date":"2017-05-04",
+      "c_method":"Email",
+      "c_subject":"New Company Phone Call",
+      "c_details":"Spoke over the phone about opportunity",
+      "c_link":"",
+      "c_notes":"",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+    },
+    {
+      "id":15,
+      "c_date":"2017-05-04",
+      "c_method":"Email",
+      "c_subject":"Sample Company Interview",
+      "c_details":"Received email from contact regarding job interview",
+      "c_link":"http://www.gmail.com/sampleemail",
+      "c_notes":"",
+      "job_ref_id":57,
+      "job_ref_text":"Sample"
+    }
+  ]
+}
+
+```
+
+If there are no communications associated with the user, the response body will contain an empty communications array, e.g.:
+
+```json
+{
+  "communications": [
+  ]
+}
+```
+
+### create
+
+The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below:
+
+```html
+<form id="new-communication-form">
+  <fieldset>
+    <div>
+      <label>Communication Date</label>
+      <input name="communication[c_date]" placeholder="Communication Date" type="date">
+    </div>
+
+    <div class="form-group c-method">
+      <label>Communication Method (required)</label>
+      <select class="form-control" id="communication-method-select">
+          <option class="form-control required-field" name="communication[c_method]" placeholder="Communication Method" type="text" value="Email">Email</option>
+          <option class="form-control required-field" name="communication[c_method]" placeholder="Communication Method" type="text" value="Phone">Phone</option>
+          <option class="form-control required-field" name="communication[c_method]" placeholder="Communication Method" type="text" value="Linkedin">LinkedIn</option>
+          <option class="form-control required-field" name="communication[c_method]" placeholder="Communication Method" type="text" value="Meeting">Meeting</option>
+          <option class="form-control required-field" name="communication[c_method]" placeholder="Communication Method" type="text" value="Other">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Communication Subject (required)</label>
+      <input name="communication[c_subject]" placeholder="Communication Subject" type="text">
+    </div>
+
+    <div>
+      <label>Communication Url</label>
+      <input name="communication[c_link]" placeholder="Communication Link" type="text">
+    </div>
+
+    <div>
+      <label>Communication Details</label>
+      <textarea name="communication[c_details]" placeholder="Communication Details"></textarea>
+    </div>
+
+    <div>
+      <label>Communication Notes</label>
+      <textarea name="communication[c_notes]" placeholder="Communication Notes"></textarea>
+    </div>
+
+    <div>
+      <input name="submit" type="submit" value="Submit">
+    </div>
+  </fieldset>
+</form>
+
+```
+If the request is successful, the response will have an HTTP Status of 201 Created, and the body will contain JSON of the created communication, e.g.:
+
+```json
+
+{
+  "communication":{
+    "id":18,
+    "c_date":"2017-05-04",
+    "c_method":"Email",
+    "c_subject":"New Company Phone Call",
+    "c_details":"Spoke over the phone about opportunity",
+    "c_link":"",
+    "c_notes":"",
+    "job_ref_id":60,
+    "job_ref_text":"New Company"
+  }
+}
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+### show
+
+The `show` action is a *GET* specifing the `id` of the communication to retrieve. If the request is successful the status will be 200, OK, and the response body will contain JSON for the communication requested, e.g.:
+
+```json
+{
+  "communication": {
+    "id":18,
+    "c_date":"2017-05-04",
+    "c_method":"Email",
+    "c_subject":"New Company Phone Call",
+    "c_details":"Spoke over the phone about opportunity",
+    "c_link":"",
+    "c_notes":"",
+    "job_ref_id":60,
+    "job_ref_text":"New Company"
+  }
+}
+
+```
+
+### update
+
+This `update` action expects a *PATCH* with changes to to an existing job,
+ e.g.:
+
+```json
+{
+  "communication": {
+    "c_details":"Spoke over the phone about opportunity. Appears interested.",
+    "c_notes":"Possible Interview Opportunity",
+  }
+}
+
+```
+
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+
+```json
+{
+  "communication": {
+    "id":18,
+    "c_date":"2017-05-04",
+    "c_method":"Email",
+    "c_subject":"New Company Phone Call",
+    "c_details":"Spoke over the phone about opportunity. Appears interested.",
+    "c_link":"",
+    "c_notes":"Possible Interview Opportunity",
+    "job_ref_id":60,
+    "job_ref_text":"New Company"
+  }
+}
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+ ### destroy
+
+ This `destroy` action expects a *DELETE* specifying the `id` of the communication to delete.
+
+ If the request is successful the response will have an HTTP status of 204 No Content.
+
+ If the request is unsuccessful, the response will have a status of 401 Unauthorized.
+
+ ---
 
 ## Contact Actions
 
