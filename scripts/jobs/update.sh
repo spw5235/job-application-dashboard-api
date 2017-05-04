@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/jobs/5"
+URL_PATH="/jobs/${ID}"
 # URL_PATH="/students/2/sessions/${ID}"
 curl "${API}${URL_PATH}" \
   --include \
@@ -11,13 +11,7 @@ curl "${API}${URL_PATH}" \
   --data '{
     "job": {
         "title": "update",
-        "posting_date": "2016-01-01",
-        "post_url": "www.monster.com",
-        "salary": "20,000",
-        "requirement": "none",
-        "deadline": "",
-        "action_required": "",
-        "pending": "true"
+        "posting_date": "2017-05-23"
       }
     }'
 

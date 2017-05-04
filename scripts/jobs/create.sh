@@ -8,14 +8,20 @@
     --header "Authorization: Token token=${TOKEN}" \
     --data '{
       "job": {
-        "company_name": "this name",
-        "title": "job title",
-        "posting_date": "2016-01-01",
+        "company_name": "Sample Company",
+        "title": "Sample Job Title",
+        "posting_date": "2017-01-01",
         "post_url": "www.monster.com",
         "salary": "20,000",
-        "requirement": "none",
-        "deadline": "",
-        "comment": "none"
+        "job_description": "Job Description entered here",
+        "responsibility": "Responsibility entered here",
+        "requirement": "Requirements entered here",
+        "deadline": "2017-01-25",
+        "applied": "true",
+        "date_applied": "2017-01-15",
+        "priority_num": "1",
+        "default_reminder": "true",
+        "note": "enter note here"
       }
     }'
 
