@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502194500) do
+ActiveRecord::Schema.define(version: 20170504233427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,14 +23,10 @@ ActiveRecord::Schema.define(version: 20170502194500) do
     t.string   "c_link"
     t.string   "c_notes"
     t.integer  "user_id"
-    t.integer  "contact_ref_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "contact_ref_text"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "job_ref_id"
     t.string   "job_ref_text"
-    t.integer  "document_ref_id"
-    t.string   "document_ref_text"
     t.index ["user_id"], name: "index_communications_on_user_id", using: :btree
   end
 
@@ -100,19 +96,11 @@ ActiveRecord::Schema.define(version: 20170502194500) do
     t.string   "reminder_subject"
     t.string   "reminder_details"
     t.date     "reminder_date"
-    t.boolean  "reminder_archive"
-    t.date     "reminder_compl_date"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "user_id"
     t.integer  "job_ref_id"
-    t.integer  "contact_ref_id"
-    t.integer  "document_ref_id"
-    t.integer  "communication_ref_id"
     t.string   "job_ref_text"
-    t.string   "contact_ref_text"
-    t.string   "document_ref_text"
-    t.string   "communication_ref_text"
     t.index ["user_id"], name: "index_reminders_on_user_id", using: :btree
   end
 
