@@ -638,7 +638,215 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
 ## Contact Actions
 
-This portion is currently under development.
+
+All contacts action requests must include a valid HTTP header `Authorization: Token token=<token>` or they will be rejected with a status of 401 Unauthorized.
+
+### index
+
+The `index` action is a *GET* that retrieves all the contacts associated with a user. The response body will contain JSON containing an array of contacts, e.g.:
+
+```json
+
+{
+  "contacts":[
+    {
+      "id":17,
+      "first_name":"Jeffrey",
+      "last_name":"Erikson",
+      "full_name":"Jeffrey Erikson",
+      "nickname":"",
+      "job_title":"Web Developing Intern",
+      "email":"jeffreye@samplecompany.com",
+      "phone":"666-666-6666",
+      "website":"",
+      "notes":"Intern at Sample Company that may be able to assist in getting an interview",
+      "job_ref_id":57,
+      "job_ref_text":"Sample"
+    },
+    {
+      "id":16,
+      "first_name":"Jonathan",
+      "last_name":"Smith",
+      "full_name":"Jonathan Smith",
+      "nickname":"Jon",
+      "job_title":"HR Director",
+      "email":"jon.smith@newcompany.com",
+      "phone":"555-555-5555",
+      "website":"http://www.linkin.com/jon.smith",
+      "notes":"",
+      "job_ref_id":60,
+      "job_ref_text":"New Company"
+      }
+    ]
+  }
+
+
+```
+
+If there are no contacts associated with the user, the response body will contain an empty contacts array, e.g.:
+
+```json
+{
+  "contacts": [
+  ]
+}
+```
+
+### create
+
+The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below.  Please note that first name and last name are required fields.  From this, a full name value is created within this api and does not need to be part of the form.
+
+```html
+<form id="new-contact-form">
+  <fieldset>
+    <div>
+      <label>First Name (required)</label>
+      <input name="contact[first_name]" placeholder="First Name" type="text">
+    </div>
+
+    <div>
+      <label>Last Name (required)</label>
+      <input name="contact[last_name]" placeholder="Last Name" type="text">
+    </div>
+
+    <div>
+      <label>Nickname</label>
+      <input name="contact[nickname]" placeholder="Nickname" type="text">
+    </div>
+
+    <div>
+      <label>Job Title</label>
+      <input name="contact[job_title]" placeholder="Job Title" type="text">
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input name="contact[email]" placeholder="Email" type="text">
+    </div>
+
+    <div>
+      <label>Contact Web Link</label>
+      <input name="contact[website]" placeholder="Website" type="text">
+    </div>
+
+    <div>
+      <label>Phone</label>
+      <input name="contact[phone]" placeholder="Phone" type="text">
+    </div>
+
+    <div>
+      <label>Contact Notes</label>
+      <textarea name="contact[notes]" placeholder="Contact Notes"></textarea>
+    </div>
+
+    <div>
+      <input name="submit" type="submit" value="Submit">
+    </div>
+  </fieldset>
+</form>
+
+```
+If the request is successful, the response will have an HTTP Status of 201 Created, and the body will contain JSON of the created contact, e.g.:
+
+```json
+
+{
+  "contacts":
+    {
+      "id":18,
+      "first_name":"Peter",
+      "last_name":"Matthews",
+      "full_name":"Peter Matthews",
+      "nickname":"Pete",
+      "job_title":"Web Developing Director",
+      "email":"pete@webdeveloperscompany.com",
+      "phone":"",
+      "website":"",
+      "notes":"",
+      "job_ref_id":58,
+      "job_ref_text":"Web Developers Company"
+    }
+  }
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+### show
+
+The `show` action is a *GET* specifing the `id` of the contact to retrieve. If the request is successful the status will be 200, OK, and the response body will contain JSON for the contact requested, e.g.:
+
+```json
+{
+  "contacts":
+    {
+      "id":18,
+      "first_name":"Peter",
+      "last_name":"Matthews",
+      "full_name":"Peter Matthews",
+      "nickname":"Pete",
+      "job_title":"Web Developing Director",
+      "email":"pete@webdeveloperscompany.com",
+      "phone":"",
+      "website":"",
+      "notes":"",
+      "job_ref_id":58,
+      "job_ref_text":"Web Developers Company"
+    }
+  }
+
+```
+
+### update
+
+This `update` action expects a *PATCH* with changes to to an existing job,
+ e.g.:
+
+```json
+{
+  "contacts":
+    {
+      "nickname":"",
+      "job_title":"Web Developing Coordinator",
+    }
+  }
+
+```
+
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+
+```json
+{
+  "contacts":
+    {
+      "id":18,
+      "first_name":"Peter",
+      "last_name":"Matthews",
+      "full_name":"Peter Matthews",
+      "nickname":"",
+      "job_title":"Web Developing Coordinator",
+      "email":"pete@webdeveloperscompany.com",
+      "phone":"",
+      "website":"",
+      "notes":"",
+      "job_ref_id":58,
+      "job_ref_text":"Web Developers Company"
+    }
+  }
+
+```
+
+If the request is unsuccessful, the response will have an HTTP Status of 400 Bad Request, and the response body will be JSON describing the errors.
+
+ ### destroy
+
+ This `destroy` action expects a *DELETE* specifying the `id` of the contact to delete.
+
+ If the request is successful the response will have an HTTP status of 204 No Content.
+
+ If the request is unsuccessful, the response will have a status of 401 Unauthorized.
+
+ ---
 
 ## Document Actions
 
