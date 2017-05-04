@@ -249,19 +249,19 @@ If there are no jobs associated with the user, the response body will contain
 
 ### create
 
-The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below:
+The `create` action expects a *POST* with an empty body (e.g `''` or `'{}'` if JSON).   A sample create form is below.  Please note that Company Name (company_name) and Job Title (title) are required fields
 
 ```html
 <form id="create-job-form">
   <fieldset>
-    <div>
-      <label>Job Title (required)</label>
-      <input name="job[title]" placeholder="Job Title" type="text">
+    <div class="form-group">
+      <label>Company Name (required)</label>
+      <input name="job[company_name]" placeholder="Company Name" type="text">
     </div>
 
     <div>
-      <label>Posting Date</label>
-      <input name="job[posting_date]" placeholder="Date Posted" type="date">
+      <label>Job Title (required)</label>
+      <input name="job[title]" placeholder="Job Title" type="text">
     </div>
 
     <div>
@@ -367,7 +367,7 @@ If the request is unsuccessful, the response will have an HTTP Status of 400 Bad
 
 The `show` action is a *GET* specifing the `id` of the job to retrieve.
 If the request is successful the status will be 200, OK, and the response body
- will contain JSON for the game requested, e.g.:
+ will contain JSON for the job requested, e.g.:
 
 ```json
 
@@ -412,7 +412,7 @@ This `update` action expects a *PATCH* with changes to to an existing job,
 ```
 
 If the request is successful, the response will have an HTTP Status of 200 OK,
- and the body will be JSON containing the modified game, e.g.:
+ and the body will be JSON containing the modified job, e.g.:
 
 ```json
 {
@@ -605,7 +605,7 @@ This `update` action expects a *PATCH* with changes to to an existing job,
 
 ```
 
-If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified communication, e.g.:
 
 ```json
 {
@@ -813,7 +813,7 @@ This `update` action expects a *PATCH* with changes to to an existing job,
 
 ```
 
-If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified contact, e.g.:
 
 ```json
 {
@@ -1000,7 +1000,7 @@ This `update` action expects a *PATCH* with changes to to an existing job,
 
 ```
 
-If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified game, e.g.:
+If the request is successful, the response will have an HTTP Status of 200 OK, and the body will be JSON containing the modified document, e.g.:
 
 ```json
 {
